@@ -1,7 +1,7 @@
 TARGET = mass
 CC = cc
 CFLAGS = -g
-OBJ = vector.o polygon.o
+OBJ = vector.o list.o #polygon.o
 
 all: main.c $(OBJ)
 	$(CC) $(CFLAGS) -o $(TARGET) $^ -lm
@@ -9,5 +9,11 @@ all: main.c $(OBJ)
 vector.o: vector.c vector.h
 	$(CC) $(CFLAGS) -c $< -lm
 
+list.o: list.c list.h
+	$(CC) $(CFLAGS) -c $<
+
 polygon.o: polygon.c polygon.h
 	$(CC) $(CFLAGS) -c $< -lm
+
+clean:
+	rm *.o

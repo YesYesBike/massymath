@@ -9,12 +9,6 @@ typedef struct vector {
 	double z;
 } vec_t;
 
-typedef struct pol_t {
-	double r;
-	double a;
-	//double z;
-} pol_t;
-
 #ifndef MASS_LIST_
 #include "list.h"
 #define MASS_LIST_
@@ -31,11 +25,6 @@ double	vec_len(vec_t *a);
 vec_t	*vec_sca(v_list *list, vec_t *a, double n);
 void	vec_print(vec_t *a);
 double	vec_dist(vec_t *a, vec_t *b);
-vec_t	vec_rot(vec_t v, double a);
 vec_t	*vec_rev(v_list *list, vec_t *a);
-vec_t	pol2vec(pol_t p);
-pol_t 	vec2pol(vec_t v);
-void	pol_print(pol_t a);
-pol_t	pol_move(pol_t p, vec_t v);
 
 #endif	/* MASS_VECTOR_ */

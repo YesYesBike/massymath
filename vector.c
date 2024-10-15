@@ -9,7 +9,7 @@ vec_t vec_add(vec_t a, vec_t b)
 	vec_t ret;
 	ret.x = a.x + b.x;
 	ret.y = a.y + b.y;
-	//ret.z = a.z + b.z;
+	ret.z = a.z + b.z;
 
 	return ret;
 }
@@ -21,7 +21,7 @@ vec_t vec_add_l(vec_t *list, int size)
 	for (int i=0; i<size; i++) {
 		ret.x += list[i].x;
 		ret.y += list[i].y;
-		//ret.z += list[i].z;
+		ret.z += list[i].z;
 	}
 
 	return ret;
@@ -37,7 +37,7 @@ vec_t vec_add_n(int n, ...)
 		vec_t vec = va_arg(ap, vec_t);
 		ret.x += vec.x;
 		ret.y += vec.y;
-		//ret.z += vec.z;
+		ret.z += vec.z;
 	}
 
 	va_end(ap);
@@ -47,8 +47,8 @@ vec_t vec_add_n(int n, ...)
 
 double vec_len(vec_t a)
 {
-	return hypot(a.x, a.y);
-	//return hypot(a.x, a.y, a.z);
+	//return hypot(a.x, a.y);
+	return sqrt(a.x*a.x + a.y*a.y + a.z*a.z);
 }
 
 
@@ -57,7 +57,7 @@ vec_t vec_sca(vec_t a, double n)
 	vec_t ret;
 	ret.x = a.x * n;
 	ret.y = a.y * n;
-	//ret.z = a.z * n;
+	ret.z = a.z * n;
 	
 	return ret;
 }
@@ -65,8 +65,11 @@ vec_t vec_sca(vec_t a, double n)
 
 void vec_print(vec_t a)
 {
-	printf("x:%lf y:%lf\n", a);
-	//printf("%lf %lf %lf\n", a);
+	//printf("x:%lf y:%lf\n", a);
+	//printf("x:%lf y:%lf z:%lf\n", a);
+	printf("x:%lf ", a.x);
+	printf("y:%lf ", a.y);
+	printf("z:%lf\n", a.z);
 }
 
 
@@ -75,7 +78,9 @@ vec_t vec_rev(vec_t a)
 	vec_t ret;
 	ret.x = -(a.x);
 	ret.y = -(a.y);
-	//ret.z = -(a.z);
+	ret.z = -(a.z);
+
+	return ret;
 }
 
 
@@ -84,7 +89,7 @@ vec_t vec_sub(vec_t a, vec_t b)
 	vec_t ret;
 	ret.x = a.x - b.x;
 	ret.y = a.y - b.y;
-	//ret.z = a.z - b.z;
+	ret.z = a.z - b.z;
 
 	return ret;
 }
@@ -99,7 +104,7 @@ vec_t vec_sub_n(int n, ...)
 		vec_t vec = va_arg(ap, vec_t);
 		ret.x -= vec.x;
 		ret.y -= vec.y;
-		//ret.z -= vec.z;
+		ret.z -= vec.z;
 	}
 
 	va_end(ap);
@@ -109,13 +114,17 @@ vec_t vec_sub_n(int n, ...)
 
 double vec_dist(vec_t a, vec_t b)
 {
-	return hypot((a.x-b.x), (a.y-b.y));
-	//return hypot((a.x-b.x), (a.y-b.y), (a.z-b.z));
+	//return hypot((a.x-b.x), (a.y-b.y));
+	double d_x = a.x - b.x;
+	double d_y = a.y - b.y;
+	double d_z = a.z - b.z;
+	return sqrt(d_x*d_x + d_y*d_y + d_z*d_z);
 }
 
 
 vec_t vec_rot(vec_t v, double a)
 {
+	//TODO 3D
 	vec_t ret;
 	pol_t p = vec2pol(v);
 	p.a += a;
@@ -127,6 +136,7 @@ vec_t vec_rot(vec_t v, double a)
 
 vec_t pol2vec(pol_t p)
 {
+	//TODO 3D
 	vec_t ret;
 	ret.x = p.r * cos(p.a);
 	ret.y = p.r * sin(p.a);
@@ -137,6 +147,7 @@ vec_t pol2vec(pol_t p)
 
 pol_t vec2pol(vec_t v)
 {
+	//TODO 3D
 	pol_t ret;
 	ret.r = vec_len(v);
 	ret.a = atan2(v.y, v.x);
@@ -147,12 +158,14 @@ pol_t vec2pol(vec_t v)
 
 void pol_print(pol_t p)
 {
+	//TODO 3D
 	printf("r:%f, a:%f\n", p);
 }
 
 
 pol_t pol_move(pol_t p, vec_t v)
 {
+	//TODO 3D
 	pol_t ret;
 	vec_t vec = pol2vec(p);
 	vec.x += v.x;
